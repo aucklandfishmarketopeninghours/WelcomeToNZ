@@ -6,7 +6,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
 	<title>Welcome To NZ</title>
-
+	<script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-2.0.3.min.js"></script>
 	<script src='https://cdnjs.cloudflare.com/ajax/libs/Chart.js/1.0.2/Chart.min.js'></script>
 	<!-- Bootstrap -->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ"
@@ -19,7 +19,7 @@
 	  <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 	  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 	<![endif]-->
-	<script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-2.0.3.min.js"></script>
+
 	<!-- Latest compiled and minified JavaScript -->
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb"
 			crossorigin="anonymous"></script>
@@ -149,47 +149,93 @@
 	</div>
 
 	<script> 
-		
-		var month1 = 3;
-			var month2 = 5;
-			var dataset = [];
-		    var months = [];
+			var year1datas = [];
+			var year2datas = [];
+			var year3datas = [];
+			var year4datas = [];
+			var year5datas = [];
+			var months = [];
+
 			jQuery.getJSON('api/MonthlyVisitors').done(function (data) {
+
 				for (var i = 6; i < data.length; i++) {
-					dataset.push(parseInt(data[i]["Year5"]));
+					year1datas.push(parseInt(data[i]["Year1"]));
+					year2datas.push(parseInt(data[i]["Year2"]));
+					year3datas.push(parseInt(data[i]["Year3"]));
+					year4datas.push(parseInt(data[i]["Year4"]));
+					year5datas.push(parseInt(data[i]["Year5"]));
 				}
 				for (var i = 0; i < 6; i++) {
-					dataset.push(parseInt(data[i]["Year5"]));
+					year1datas.push(parseInt(data[i]["Year1"]));
+					year2datas.push(parseInt(data[i]["Year2"]));
+					year3datas.push(parseInt(data[i]["Year3"]));
+					year4datas.push(parseInt(data[i]["Year4"]));
+					year5datas.push(parseInt(data[i]["Year5"]));
 				}
+				drawMonthlyGraph();
+				drawMonthlyGraph2();
 			});
-			dataset = [381068, 380034, 343799, 311866, 209170, 230088, 237872, 221181, 245089, 260246, 333598, 494193];
+
 			
-			// line chart data
-			var buyerData = {
-				labels: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
-				datasets: [
-					{
-						fillColor: "#ffffff",
-						strokeColor: "#60B2FF",
-						pointColor: "#fff",
-						pointStrokeColor: "#60B2FF",
-						data: dataset
-					}
-				]
+			function drawMonthlyGraph() {
+				var dataset = [381068, 380034, 343799, 311866, 209170, 230088, 237872, 221181, 245089, 260246, 333598, 494193];
+				var month1 = 3;
+				var month2 = 5;
+				// line chart data
+				var buyerData = {
+					type: 'line',
+					data: {
+						labels: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
+						datasets: [
+							{
+								label: '# of 2012',
+								data: year1datas,
+								borderWidth: 1
+							},
+							{
+								label: '# of 2013',
+								data: year2datas,
+								borderWidth: 1
+							},
+							{
+								label: '# of 2014',
+								data: year3datas,
+								borderWidth: 1
+							},
+							{
+								label: '# of 2015',
+								data: year4datas,
+								borderWidth: 1
+							},
+							{
+								label: '# of 2016',
+								data: dataset,
+								borderWidth: 1
+							}
+						]
+					},
+				}
+				document.getElementById('v-month1Label').innerHTML = buyerData.data.labels[month1 - 1];
+				document.getElementById('v-month1Value').innerHTML = year5datas[month1 - 1];
+
+				document.getElementById('v-month2Label').innerHTML = buyerData.data.labels[month2 - 1];
+				document.getElementById('v-month2Value').innerHTML = year5datas[month2 - 1];
+				// get line chart canvas
+				var buyers = document.getElementById('visitorNumsCanvas').getContext('2d');
+				// draw line chart
+				new Chart(buyers, buyerData);
+				console.log(year1datas);
+				console.log(year2datas);
+				console.log(year3datas);
+				console.log(year4datas);
+				console.log(year5datas); 
 			}
-			var options = {
-				scaleShowLabels: false // to hide vertical lables
-			};
+				
 
-			document.getElementById('v-month1Label').innerHTML = buyerData.labels[month1 - 1];
-			document.getElementById('v-month1Value').innerHTML = dataset[month1 - 1];
+			//dataset = [381068, 380034, 343799, 311866, 209170, 230088, 237872, 221181, 245089, 260246, 333598, 494193];
+		
 
-			document.getElementById('v-month2Label').innerHTML = buyerData.labels[month2 - 1];
-			document.getElementById('v-month2Value').innerHTML = dataset[month2 - 1];
-			// get line chart canvas
-			var buyers = document.getElementById('visitorNumsCanvas').getContext('2d');
-			// draw line chart
-			new Chart(buyers).Line(buyerData, options);
+			
 		
 		
 		
@@ -212,44 +258,50 @@
 		var smonth2 = 5;
 
 		//var sdataset = [381068, 380034, 343799, 311866, 209170, 230088, 237872, 221181, 245089, 260246, 333598, 494193];
-		var sdataset = [];
-		var months = [];
-		jQuery.getJSON('api/MonthlyVisitors').done(function (data) {
-			for (var i = 6; i < data.length; i++) {
-				sdataset.push(data[i]["Year5"]);
+		//var sdataset = [];
+		//var months = [];
+		//jQuery.getJSON('api/MonthlyVisitors').done(function (data) {
+		//	for (var i = 6; i < data.length; i++) {
+		//		sdataset.push(data[i]["Year5"]);
+		//	}
+		//	for (var i = 0; i < 6; i++) {
+		//		sdataset.push(data[i]["Year5"]);
+		//	}
+		//	drawMonthlyGraph2();
+
+		//});
+		//sdataset = [381068, 380034, 343799, 311866, 209170, 230088, 237872, 221181, 245089, 260246, 333598, 494193];
+		
+		function drawMonthlyGraph2() {
+			// line chart data
+			var sData = {
+				labels: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
+				datasets: [
+					{
+						fillColor: "rgba(172,194,132,0.4)",
+						strokeColor: "#ACC26D",
+						pointColor: "#fff",
+						pointStrokeColor: "#9DB86D",
+						data: year5datas
+					}
+				]
 			}
-			for (var i = 0; i < 6; i++) {
-				sdataset.push(data[i]["Year5"]);
-			}
-		});
-		sdataset = [381068, 380034, 343799, 311866, 209170, 230088, 237872, 221181, 245089, 260246, 333598, 494193];
-		// line chart data
-		var sData = {
-			labels: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
-			datasets: [
-				{
-					fillColor: "rgba(172,194,132,0.4)",
-					strokeColor: "#ACC26D",
-					pointColor: "#fff",
-					pointStrokeColor: "#9DB86D",
-					data: sdataset
-				}
-			]
+			var options = {
+				scaleShowLabels: false // to hide vertical lables
+			};
+			//document.getElementById('heading2').innerHTML = data[month1];
+			document.getElementById('v-month1Label').innerHTML = sData.labels[smonth1 - 1];
+			document.getElementById('v-month1Value').innerHTML = year5datas[smonth1 - 1];
+
+			document.getElementById('v-month2Label').innerHTML = sData.labels[smonth2 - 1];
+			document.getElementById('v-month2Value').innerHTML = year5datas[smonth2 - 1];
+			// get line chart canvas
+			var canvas = document.getElementById('visitorCanvas').getContext('2d');
+			// draw line chart
+			new Chart(canvas).Line(sData, options);
 		}
 
-		var options = {
-			scaleShowLabels: false // to hide vertical lables
-		};
-		//document.getElementById('heading2').innerHTML = data[month1];
-		document.getElementById('v-month1Label').innerHTML = sData.labels[smonth1 - 1];
-		document.getElementById('v-month1Value').innerHTML = sdataset[smonth1 - 1];
-								
-		document.getElementById('v-month2Label').innerHTML = sData.labels[smonth2 - 1];
-		document.getElementById('v-month2Value').innerHTML = sdataset[smonth2 - 1];
-		// get line chart canvas
-		var canvas = document.getElementById('visitorCanvas').getContext('2d');
-		// draw line chart
-		new Chart(canvas).Line(sData, options);
+		
 	</script>
 
 	<div class="col-md-2">
@@ -272,41 +324,42 @@
 		var sdataset = [];
 		//var sdataset = [22.55263158, 19.42105263, 15.62631579, 10.85263158, 7.410526316, 5.826315789, 6.5, 9.2, 13.01052632, 17.03157895, 20.67894737, 21.92105263];
 		jQuery.getJSON('api/RadiationRates').done(function (data) {
-			for (var i = 6; i < data.length; i++) {
+			for (var i = 0; i < data.length; i++) {
 				sdataset.push(data[i]["AverageRadiation"]);
 			}
-			for (var i = 0; i < 6; i++) {
-				sdataset.push(data[i]["AverageRadiation"]);
-			}
+			drawSunburnGraph();
 		});
-		sdataset = [22.55263158, 19.42105263, 15.62631579, 10.85263158, 7.410526316, 5.826315789, 6.5, 9.2, 13.01052632, 17.03157895, 20.67894737, 21.92105263];
-		// line chart data
-		var sData = {
-			labels: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
-			datasets: [
-				{
-					fillColor: "rgba(172,194,132,0.4)",
-					strokeColor: "#ACC26D",
-					pointColor: "#fff",
-					pointStrokeColor: "#9DB86D",
-					data: sdataset
-				}
-			]
+		//sdataset = [22.55263158, 19.42105263, 15.62631579, 10.85263158, 7.410526316, 5.826315789, 6.5, 9.2, 13.01052632, 17.03157895, 20.67894737, 21.92105263];
+		function drawSunburnGraph() {
+			// line chart data
+			var sData = {
+				labels: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
+				datasets: [
+					{
+						fillColor: "rgba(172,194,132,0.4)",
+						strokeColor: "#ACC26D",
+						pointColor: "#fff",
+						pointStrokeColor: "#9DB86D",
+						data: sdataset
+					}
+				]
+			}
+
+			var options = {
+				scaleShowLabels: false // to hide vertical lables
+			};
+			//document.getElementById('heading2').innerHTML = data[month1];
+			document.getElementById('s-month1Label').innerHTML = sData.labels[smonth1 - 1];
+			document.getElementById('s-month1Value').innerHTML = sdataset[smonth1 - 1];
+
+			document.getElementById('s-month2Label').innerHTML = sData.labels[smonth2 - 1];
+			document.getElementById('s-month2Value').innerHTML = sdataset[smonth2 - 1];
+			// get line chart canvas
+			var canvas = document.getElementById('sunburnCanvas').getContext('2d');
+			// draw line chart
+			new Chart(canvas).Line(sData, options);
 		}
-
-		var options = {
-			scaleShowLabels: false // to hide vertical lables
-		};
-		//document.getElementById('heading2').innerHTML = data[month1];
-		document.getElementById('s-month1Label').innerHTML = sData.labels[smonth1 - 1];
-		document.getElementById('s-month1Value').innerHTML = sdataset[smonth1 - 1];
-
-		document.getElementById('s-month2Label').innerHTML = sData.labels[smonth2 - 1];
-		document.getElementById('s-month2Value').innerHTML = sdataset[smonth2 - 1];
-		// get line chart canvas
-		var canvas = document.getElementById('sunburnCanvas').getContext('2d');
-		// draw line chart
-		new Chart(canvas).Line(sData, options);
+	
 	</script>
 
 
@@ -328,8 +381,8 @@
 	<script>
 		var amonth1 = 3;
 		var amonth2 = 5;
-		
-		var adataset = [57.19, 57.01, 53.03, 46.39, 36.96, 32.86, 36.33, 35.18, 38.17, 40.9, 47, 49.23];
+		var adataset = [];
+		//var adataset = [57.19, 57.01, 53.03, 46.39, 36.96, 32.86, 36.33, 35.18, 38.17, 40.9, 47, 49.23];
 		jQuery.getJSON('api/OccupationRates').done(function (data) {
 			for (var i = 6; i < data.length; i++) {
 				adataset.push(data[i]["OccupationRate"]);
@@ -337,34 +390,38 @@
 			for (var i = 0; i < 6; i++) {
 				adataset.push(data[i]["OccupationRate"]);
 			}
+			drawOccupancyGraph();
 		});
-		// line chart data
-		var aData = {
-			labels: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
-			datasets: [
-				{
-					fillColor: "rgba(172,194,132,0.4)",
-					strokeColor: "#ACC26D",
-					pointColor: "#fff",
-					pointStrokeColor: "#9DB86D",
-					data: adataset
-				}
-			]
+		function drawOccupancyGraph() {
+
+			// line chart data
+			var aData = {
+				labels: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
+				datasets: [
+					{
+						fillColor: "rgba(172,194,132,0.4)",
+						strokeColor: "#ACC26D",
+						pointColor: "#fff",
+						pointStrokeColor: "#9DB86D",
+						data: adataset
+					}
+				]
+			}
+
+			var options = {
+				scaleShowLabels: false // to hide vertical lables
+			};
+			//document.getElementById('heading2').innerHTML = data[month1];
+			document.getElementById('a-month1Label').innerHTML = aData.labels[smonth1 - 1];
+			document.getElementById('a-month1Value').innerHTML = adataset[smonth1 - 1];
+
+			document.getElementById('a-month2Label').innerHTML = aData.labels[smonth2 - 1];
+			document.getElementById('a-month2Value').innerHTML = adataset[smonth2 - 1];
+			// get line chart canvas
+			var canvas2 = document.getElementById('accomCanvas').getContext('2d');
+			// draw line chart
+			new Chart(canvas2).Line(aData, options);
 		}
-
-		var options = {
-			scaleShowLabels: false // to hide vertical lables
-		};
-		//document.getElementById('heading2').innerHTML = data[month1];
-		document.getElementById('a-month1Label').innerHTML = aData.labels[smonth1 - 1];
-		document.getElementById('a-month1Value').innerHTML = adataset[smonth1 - 1];
-
-		document.getElementById('a-month2Label').innerHTML = aData.labels[smonth2 - 1];
-		document.getElementById('a-month2Value').innerHTML = adataset[smonth2 - 1];
-		// get line chart canvas
-		var canvas2 = document.getElementById('accomCanvas').getContext('2d');
-		// draw line chart
-		new Chart(canvas2).Line(aData, options);
 	</script>
 
 

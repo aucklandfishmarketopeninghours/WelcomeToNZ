@@ -69,6 +69,10 @@ namespace ASPApi
 					var monthlyYear5Visitors = new MonthlyVisitors()
 					{
 						Month = row["Month"].ToString(),
+						Year1 = row["Year1"].ToString(),
+						Year2 = row["Year2"].ToString(),
+						Year3 = row["Year3"].ToString(),
+						Year4 = row["Year4"].ToString(),
 						Year5 = row["Year5"].ToString()
 					};
 					visitors.Add(monthlyYear5Visitors);
