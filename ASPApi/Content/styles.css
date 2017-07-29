@@ -1,0 +1,54 @@
+﻿#stay-off {
+	color: #F7B22E;
+	font-size: 40pt;
+	font-weight: 900;
+}
+
+body {
+	font-family: 'Roboto', sans-serif;
+}
+
+.jumbotron {
+	background-color: white;
+}
+
+hr {
+	background-color: white;
+	width: 60%;
+}
+
+h4 {
+	font-weight: 300;
+	line-height: 130%;
+}
+
+.blue-back {
+	background-color: #60B2FF;
+}
+
+canvas {
+	padding: 0;
+	margin: 0;
+	width: 100%;
+	height: 300px;
+}
+
+.navbar {
+	background-color: white;
+}
+
+
+#visitorNumsTitle {
+	color: white;
+	font-weight: 700;
+}
+
+.number {
+	color: white;
+	font-size: 30pt;
+	font-weight: 700;
+}
+
+.month {
+	color: white;
+}
