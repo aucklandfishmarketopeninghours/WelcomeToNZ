@@ -29,23 +29,26 @@
 	<script>
 		var month1 = 2;
 		var month2 = 5;
-		drawAllGraphs(month1, month2);
-		jQuery("#graphContainer").show();
-		function updateDropdown(dropdown, month, monthIndex) {
-			var button = document.getElementById(dropdown);
-			button.innerHTML = month + ' <img src="content/down-arrow.png">';
+		jQuery(document).ready(function () {
+		    drawAllGraphs(month1, month2);
+		    jQuery("#graphContainer").show();
+		});
+		    
+		    function updateDropdown(dropdown, month, monthIndex) {
+		        var button = document.getElementById(dropdown);
+		        button.innerHTML = month + ' <img src="content/down-arrow.png">';
 
-			if (dropdown == 'dropdownMenuButton1') {
-				month1 = monthIndex;
-			}
-			else {
-				month2 = monthIndex;
-			}
-			if (month1 > 0 && month2 > 0) {
-				drawAllGraphs(month1, month2);
-				jQuery("#graphContainer").show();
-			}
-		}
+		        if (dropdown == 'dropdownMenuButton1') {
+		            month1 = monthIndex;
+		        }
+		        else {
+		            month2 = monthIndex;
+		        }
+		        if (month1 > 0 && month2 > 0) {
+		            drawAllGraphs(month1, month2);
+		            jQuery("#graphContainer").show();
+		        }
+		    }
 	</script>
 
 </head>
