@@ -52,6 +52,17 @@ namespace ASPApi
 			return Json(rates);
 		}
 
+		[HttpGet]
+		[Route("api/KumaraPrices")]
+		public IHttpActionResult GetAllKumaraPrices()
+		{
+			List<KumaraPrices> rates = GetKumaraPrices();
+			if (rates == null)
+			{
+				return NotFound();
+			}
+			return Json(rates);
+		}
 		public List<MonthlyVisitors> GetMonthlyYears()
 		{
 			List<MonthlyVisitors> visitors = new List<MonthlyVisitors>();
@@ -143,6 +154,36 @@ namespace ASPApi
 				connection.Close();
 			}
 			return rates;
+		}
+
+		public List<KumaraPrices> GetKumaraPrices()
+		{
+			List<KumaraPrices> prices = new List<KumaraPrices>();
+			var connection = new SqlConnection(_connectionString);
+			try
+			{
+				connection.Open();
+				var sql = new SqlCommand("select * from [dbo].[kumaraPrice];", connection);
+				var reader = sql.ExecuteReader();
+				var dataTable = new DataTable();
+				dataTable.Load(reader);
+				// You can also use an ArrayList instead of List<>
+				foreach (DataRow row in dataTable.Rows)
+				{
+					var kumaraPrices = new KumaraPrices()
+					{
+						Month = row["Month"].ToString() == "" ? "" : row["Month"].ToString(),
+						Price = row["Kumara price"].ToString() == "" ? 0.00 : Convert.ToDouble(row["Kumara price"]),
+
+					};
+					prices.Add(kumaraPrices);
+				}
+			}
+			finally
+			{
+				connection.Close();
+			}
+			return prices;
 		}
 	}
 }
