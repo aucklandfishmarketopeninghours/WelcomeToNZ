@@ -6,14 +6,10 @@ using System.ComponentModel.DataAnnotations;
 
 namespace ASPApi.Models
 {
-	public class MonthlyVisitors
+	public class KumaraPrices
 	{
 		[Key]
 		public string Month { get; set; }
-		public string Year1 { get; set; }
-		public string Year2 { get; set; }
-		public string Year3 { get; set; }
-		public string Year4 { get; set; }
-		public string Year5 { get; set; }
+		public double? Price { get; set; }
 	}
 }

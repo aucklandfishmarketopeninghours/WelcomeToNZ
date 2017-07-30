@@ -92,6 +92,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\BRAND.png" />
+    <Content Include="Content\down-arrow.png" />
     <Content Include="Content\styles.css" />
     <Content Include="index.html" />
     <Content Include="Global.asax" />
@@ -105,6 +106,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\KumaraPrices.cs" />
     <Compile Include="Models\OccupationRates.cs" />
     <Compile Include="Models\RadiationRates.cs" />
     <Compile Include="Models\MonthlyVisitors.cs" />

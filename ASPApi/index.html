@@ -6,7 +6,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
 	<title>Welcome To NZ</title>
-
+	<script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-2.0.3.min.js"></script>
 	<script src='https://cdnjs.cloudflare.com/ajax/libs/Chart.js/1.0.2/Chart.min.js'></script>
 	<!-- Bootstrap -->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ"
@@ -19,12 +19,33 @@
 	  <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 	  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 	<![endif]-->
-	<script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-2.0.3.min.js"></script>
+	
+
 	<!-- Latest compiled and minified JavaScript -->
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb"
 			crossorigin="anonymous"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn"
 			crossorigin="anonymous"></script>
+	<script>
+		var month1 = 0;
+		var month2 = 0;
+		function updateDropdown(dropdown, month, monthIndex) {
+			var button = document.getElementById(dropdown);
+			button.innerHTML = month;
+
+			if (dropdown == 'dropdownMenuButton1') {
+				month1 = monthIndex;
+			}
+			else {
+				month2 = monthIndex;
+			}
+			if (month1 > 0 && month2 > 0) {
+				drawAllGraphs(month1, month2);
+				jQuery("#graphContainer").show();
+			}
+		}
+	</script>
+
 </head>
 <body>
 	<!-- As a link -->
@@ -33,389 +54,484 @@
 			<img alt="Brand" src="Content/brand.png">
 		</a>
 	</nav>
-
 	<div class="container">
-
 		<div class="jumbotron">
-
 			<div class="row">
-				<div class="col-md-8 offset-md-2">
+				<div class="col-md-10 offset-md-2">
 					<h1 id="stay-off" class="row mt-0 mb-5">Crowds suck.</h1>
-					<h4 class=" mt-3">
-						<p> comparison tool that allows you to compare visting New Zealand at different months, allowing you to
-						see the benefits of staying off season.</p>
-						</h4>
+					<h4 class="mt-3">
+						A comparison tool that allows you to compare visting New Zealand at different months, allowing you to
+						see the benefits of staying off season.
+					</h4>
+					<div class="mt-5">
+						<h4 class="display-inline"> I am wanting to visit New Zealand in either</h4>
+						<div class="dropdown display-inline">
+							<button class="custom-dropdown" type="button" id="dropdownMenuButton1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+								<h4 class="display-inline">month</h4>
+								<img alt="down arrow" src="Content/down-arrow.png">
+							</button>
+							<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+								<h4>
+									<button class="dropdown-item" onclick="updateDropdown('dropdownMenuButton1', 'January', 1)">January</button>
+									<button class="dropdown-item" onclick="updateDropdown('dropdownMenuButton1', 'Febuary', 2)">Febuary</button>
+									<button class="dropdown-item" onclick="updateDropdown('dropdownMenuButton1', 'March', 3)">March</button>
+									<button class="dropdown-item" onclick="updateDropdown('dropdownMenuButton1', 'April', 4)">April</button>
+									<button class="dropdown-item" onclick="updateDropdown('dropdownMenuButton1', 'May', 5)">May</button>
+									<button class="dropdown-item" onclick="updateDropdown('dropdownMenuButton1', 'June', 6)">June</button>
+									<button class="dropdown-item" onclick="updateDropdown('dropdownMenuButton1', 'July', 7)">July</button>
+									<button class="dropdown-item" onclick="updateDropdown('dropdownMenuButton1', 'August', 8)">August</button>
+									<button class="dropdown-item" onclick="updateDropdown('dropdownMenuButton1', 'September', 9)">September</button>
+									<button class="dropdown-item" onclick="updateDropdown('dropdownMenuButton1', 'October', 10)">October</button>
+									<button class="dropdown-item" onclick="updateDropdown('dropdownMenuButton1', 'November', 11)">November    </button>
+									<button class="dropdown-item" onclick="updateDropdown('dropdownMenuButton1', 'December', 12)">December</button>
+								</h4>
+							</div>
+						</div>
+						<h4 class="display-inline"> or </h4>
+						<div class="dropdown display-inline">
+							<button class="custom-dropdown" type="button" id="dropdownMenuButton2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+								<h4>month <img src="Content/down-arrow.png"></h4>
+							</button>
+							<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+								<h4>
+									<button class="dropdown-item" onclick="updateDropdown('dropdownMenuButton2', 'January', 1)">January</button>
+									<button class="dropdown-item" onclick="updateDropdown('dropdownMenuButton2', 'Febuary', 2)">Febuary</button>
+									<button class="dropdown-item" onclick="updateDropdown('dropdownMenuButton2', 'March', 3)">March</button>
+									<button class="dropdown-item" onclick="updateDropdown('dropdownMenuButton2', 'April', 4)">April</button>
+									<button class="dropdown-item" onclick="updateDropdown('dropdownMenuButton2', 'May', 5)">May</button>
+									<button class="dropdown-item" onclick="updateDropdown('dropdownMenuButton2', 'June', 5)">June</button>
+									<button class="dropdown-item" onclick="updateDropdown('dropdownMenuButton2', 'July', 7)">July</button>
+									<button class="dropdown-item" onclick="updateDropdown('dropdownMenuButton2', 'August', 8)">August</button>
+									<button class="dropdown-item" onclick="updateDropdown('dropdownMenuButton2', 'September', 9)">September</button>
+									<button class="dropdown-item" onclick="updateDropdown('dropdownMenuButton2', 'October', 10)">October</button>
+									<button class="dropdown-item" onclick="updateDropdown('dropdownMenuButton2', 'November', 11)">November</button>
+									<button class="dropdown-item" onclick="updateDropdown('dropdownMenuButton2', 'December', 12)">December</button>
+								</h4>
+							</div>
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>
-
+	</div>
+	<div id="graphContainer" style="display:none">
+		<div class="row  mt-5">
+			<!--   <div class="col-md-2 pt-5">
+			   <ul class="nav flex-column">
+				  <li class="nav-item">
+					 <a class="nav-link" href="#visitorNums">Visitors to NZ</a>
+				  </li>
+				  <li class="nav-item">
+					 <a class="nav-link" href="#sunburn">Liklihood to get sunburnt</a>
+				  </li>
+				  <li class="nav-item">
+					 <a class="nav-link" href="#accom">Accommodation occupancy %</a>
+				  </li>
+				  <li class="nav-item">
+					 <a class="nav-link" href="#">Disabled</a>
+				  </li>
+			   </ul>
+			   </div>-->
+			<!-- Stat one -->
+			<div class="col-md-10 offset-md-2 blue-back pt-5 pl-5 pb-5">
+				<h3 id="visitorNumsTitle">Visitors to New Zealand</h3>
+				<div class="row mt-6 pt-3">
+					<div class="col-md-3">
+						<h4 class="month" id="v-month1Label"></h4>
+						<hr class="ml-0">
+						<h4 class="number" id="v-month1Value"></h4>
+					</div>
+					<div class="col-md-3">
+						<h4 class="month" id="v-month2Label"></h4>
+						<hr class="ml-0">
+						<h4 class="number" id="v-month2Value"></h4>
+					</div>
+					<div class="col-md-3">
+						<h4 class="month" id="v-commentary"></h4>
+					</div>
+				</div>
+			</div>
+		</div>
 		<div class="row">
-			<div class="col-md-2 offset-md-2">
-
-				<div class="dropdown">
-					<button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
-							aria-expanded="false">
-						Compare
-					</button>
-					<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-						<a class="dropdown-item" href="#">January</a>
-						<a class="dropdown-item" href="#">Febuary</a>
-						<a class="dropdown-item" href="#">March</a>
-						<a class="dropdown-item" href="#">April</a>
-						<a class="dropdown-item" href="#">May</a>
-						<a class="dropdown-item" href="#">June</a>
-						<a class="dropdown-item" href="#">July</a>
-						<a class="dropdown-item" href="#">August</a>
-						<a class="dropdown-item" href="#">September</a>
-						<a class="dropdown-item" href="#">October</a>
-						<a class="dropdown-item" href="#">November</a>
-						<a class="dropdown-item" href="#">December</a>
-					</div>
-				</div>
-			</div>
-			<div class="col-md-4">
-				<div class="dropdown">
-					<button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
-							aria-expanded="false">
-						Compare
-					</button>
-					<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-						<a class="dropdown-item" href="#">January</a>
-						<a class="dropdown-item" href="#">Febuary</a>
-						<a class="dropdown-item" href="#">March</a>
-						<a class="dropdown-item" href="#">April</a>
-						<a class="dropdown-item" href="#">May</a>
-						<a class="dropdown-item" href="#">June</a>
-						<a class="dropdown-item" href="#">July</a>
-						<a class="dropdown-item" href="#">August</a>
-						<a class="dropdown-item" href="#">September</a>
-						<a class="dropdown-item" href="#">October</a>
-						<a class="dropdown-item" href="#">November</a>
-						<a class="dropdown-item" href="#">December</a>
-					</div>
-				</div>
+			<div class="col-md-10 offset-md-2 mb-5">
+				<canvas id="visitorNumsCanvas"></canvas>
 			</div>
 		</div>
-	</div>
+		<div id="divVisitor" class="col-md-10">
+			<h3 id="visitorTitle">Visitors to New Zealand</h3>
 
+			<h4 id="v-month1Label"></h4>
+			<h4 id="v-month1Value"></h4>
 
-	<div class="row  mt-5">
-		<div class="col-md-2 pt-5">
-			<ul class="nav flex-column">
-				<li class="nav-item">
-					<a class="nav-link" href="#visitorNums">Visitors to NZ</a>
-				</li>
-				<li class="nav-item">
-					<a class="nav-link" href="#sunburn">Liklihood to get sunburnt</a>
-				</li>
-				<li class="nav-item">
-					<a class="nav-link" href="#accom">Accommodation occupancy percentage</a>
-				</li>
-				<li class="nav-item">
-					<a class="nav-link" href="#">Disabled</a>
-				</li>
-			</ul>
+			<h4 id="v-month2Label"></h4>
+			<h4 id="v-month2Value"></h4>
+
+			<canvas id="visitorCanvas" width="600" height="400"></canvas>
 		</div>
-
-		<div id="" class="col-md-10 blue-back pt-5 pl-5 pb-5">
-			<h3 id="visitorNumsTitle">Visitors to New Zealand</h3>
-			<div class="row mt-6 pt-3">
-				<div class="col-md-4">
-
-					<h4 class="month" id="v-month1Label"></h4>
-					<hr class="ml-0">
-					<h4 class="number" id="v-month1Value"></h4>
-
-
-				</div>
-				<div class="col-md-4">
-
-					<h4 class="month" id="v-month2Label"></h4>
-					<hr class="ml-0">
-					<h4 class="number" id="v-month2Value"></h4>
-				</div>
-
-			</div>
-
-		</div>
-	</div>
-	<div class="row">
 		<div class="col-md-2">
 
 		</div>
-		<div class="col-md-10">
-			<canvas id="visitorNumsCanvas"></canvas>
+		<!-- end stat one -->
+		<!-- stat two -->
+		<div class="row">
+			<div id="sunburn" class="col-md-10 offset-md-2 blue-back mt-5 pt-5 pl-5 pb-5">
+				<h3 id="sunburnTitle">Liklihood to get sunburnt</h3>
+				<div class="row mt-6 pt-3">
+					<div class="col-md-3">
+						<h4 class="month" id="s-month1Label"></h4>
+						<hr class="ml-0">
+						<h4 class="number" id="s-month1Value"></h4>
+					</div>
+					<div class="col-md-3">
+						<h4 class="month" id="s-month2Label"></h4>
+						<hr class="ml-0">
+						<h4 class="number" id="s-month2Value"></h4>
+					</div>
+					<div class="col-md-3">
+						<h4 class="month" id="s-commentary"></h4>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-10 offset-md-2">
+				<canvas id="sunburnCanvas"></canvas>
+			</div>
+		</div>
+		<!-- end stat 2 -->
+		<!-- start stat 3-->
+		<div class="row">
+			<div id="accom" class="col-md-10 offset-md-2 blue-back mt-5 pt-5 pl-5 pb-5">
+				<h3 id="accomTitle">Accomodation occupancy rate</h3>
+				<div class="row mt-6 pt-3">
+					<div class="col-md-3">
+						<h4 class="month" id="a-month1Label"></h4>
+						<hr class="ml-0">
+						<h4 class="number" id="a-month1Value"></h4>
+					</div>
+					<div class="col-md-3">
+						<h4 class="month" id="a-month2Label"></h4>
+						<hr class="ml-0">
+						<h4 class="number" id="a-month2Value"></h4>
+					</div>
+					<div class="col-md-3">
+						<h4 class="month" id="a-commentary"></h4>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-10 offset-md-2">
+				<canvas id="accomCanvas" width="600" height="400"></canvas>
+			</div>
+		</div>
+
+		<div class="col-md-2">
+
+		</div>
+		<!--end stat3 -->
+		<!-- start stat4 -->
+		<div class="row">
+			<div id="kumara" class="col-md-10 offset-md-2 blue-back mt-5 pt-5 pl-5 pb-5">
+				<h3>Kumara prices NZ</h3>
+				<div class="row mt-6 pt-3">
+					<div class="col-md-3">
+						<h4 class="month" id="k-month1Label"></h4>
+						<hr class="ml-0">
+						<h4 class="number" id="k-month1Value"></h4>
+					</div>
+					<div class="col-md-3">
+						<h4 class="month" id="k-month2Label"></h4>
+						<hr class="ml-0">
+						<h4 class="number" id="k-month2Value"></h4>
+					</div>
+					<div class="col-md-3">
+						<h4 class="month" id="k-commentary"></h4>
+					</div>
+					<div class="col-md-3">
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-10 offset-md-2">
+				<canvas id="kumaraCanvas" width="600" height="400"></canvas>
+			</div>
 		</div>
 	</div>
+	<script>
+		// draw line chart
+		var options = {
+			scaleShowLabels: false // to hide vertical lables
+		};
+		function drawAllGraphs(month1, month2) {
 
-	<script> 
-		
-		var month1 = 3;
-			var month2 = 5;
-			var dataset = [];
-		    var months = [];
+			var year1datas = [];
+			var year2datas = [];
+			var year3datas = [];
+			var year4datas = [];
+			var year5datas = [];
+			var months = [];
+
 			jQuery.getJSON('api/MonthlyVisitors').done(function (data) {
+
 				for (var i = 6; i < data.length; i++) {
-					dataset.push(parseInt(data[i]["Year5"]));
+					year1datas.push(parseInt(data[i]["Year1"]));
+					year2datas.push(parseInt(data[i]["Year2"]));
+					year3datas.push(parseInt(data[i]["Year3"]));
+					year4datas.push(parseInt(data[i]["Year4"]));
+					year5datas.push(parseInt(data[i]["Year5"]));
 				}
 				for (var i = 0; i < 6; i++) {
-					dataset.push(parseInt(data[i]["Year5"]));
+					year1datas.push(parseInt(data[i]["Year1"]));
+					year2datas.push(parseInt(data[i]["Year2"]));
+					year3datas.push(parseInt(data[i]["Year3"]));
+					year4datas.push(parseInt(data[i]["Year4"]));
+					year5datas.push(parseInt(data[i]["Year5"]));
 				}
+				drawMonthlyGraph(year5datas);
+				drawMonthlyGraph2(year5datas);
 			});
-			dataset = [381068, 380034, 343799, 311866, 209170, 230088, 237872, 221181, 245089, 260246, 333598, 494193];
+
+			function drawMonthlyGraph(dataset) {
+				// line chart data
+				var buyerData = {
+					labels: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
+					datasets: [
+						{
+							fillColor: "#ffffff",
+							strokeColor: "#60B2FF",
+							pointColor: "#fff",
+							pointStrokeColor: "#60B2FF",
+							data: dataset
+						}
+					]
+				}
+
+				// Start commentary block 
+				var lower = Math.min(dataset[month1 - 1], dataset[month2 - 1]);
+				var higher = Math.max(dataset[month1 - 1], dataset[month2 - 1]);
+
+				var percentageDiff = (100 - (lower / higher) * 100).toFixed(2);
+
+				if (percentageDiff == 0.00) {
+					var vMessage = "There's no difference in visitor numbers between " + buyerData.labels[month1 - 1] + " and " + buyerData.labels[month2 - 1];
+				}
+				else if (lower.toString().match(dataset[month1 - 1])) {
+					var vMessage = "There's " + percentageDiff + "% less visitors in " + buyerData.labels[month1 - 1];
+				}
+				else {
+					var vMessage = "There's " + percentageDiff + "% less visitors in " + buyerData.labels[month2 - 1];
+				}
+				document.getElementById('v-commentary').innerHTML = vMessage;
+				// Finsh commentary block
+
+				document.getElementById('v-month1Label').innerHTML = buyerData.labels[month1 - 1];
+				document.getElementById('v-month1Value').innerHTML = dataset[month1 - 1];
+
+				document.getElementById('v-month2Label').innerHTML = buyerData.labels[month2 - 1];
+				document.getElementById('v-month2Value').innerHTML = dataset[month2 - 1];
+				// get line chart canvas
+				var canvas = document.getElementById('visitorNumsCanvas').getContext('2d');
 			
-			// line chart data
-			var buyerData = {
-				labels: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
-				datasets: [
-					{
-						fillColor: "#ffffff",
-						strokeColor: "#60B2FF",
-						pointColor: "#fff",
-						pointStrokeColor: "#60B2FF",
-						data: dataset
-					}
-				]
+				// draw line chart
+				new Chart(canvas).Line(buyerData, options);
 			}
-			var options = {
-				scaleShowLabels: false // to hide vertical lables
-			};
 
-			document.getElementById('v-month1Label').innerHTML = buyerData.labels[month1 - 1];
-			document.getElementById('v-month1Value').innerHTML = dataset[month1 - 1];
+			function drawMonthlyGraph2(dataset) {
+				var sData = {
+						labels: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
+						datasets: [
+							{
+								fillColor: "rgba(172,194,132,0.4)",
+								strokeColor: "#ACC26D",
+								pointColor: "#fff",
+								pointStrokeColor: "#9DB86D",
+								data: dataset
+							}
+						]
+				};
 
-			document.getElementById('v-month2Label').innerHTML = buyerData.labels[month2 - 1];
-			document.getElementById('v-month2Value').innerHTML = dataset[month2 - 1];
-			// get line chart canvas
-			var buyers = document.getElementById('visitorNumsCanvas').getContext('2d');
-			// draw line chart
-			new Chart(buyers).Line(buyerData, options);
-		
-		
-		
-	</script>
+				document.getElementById('v-month1Label').innerHTML = sData.labels[month1 - 1];
+				document.getElementById('v-month1Value').innerHTML = dataset[month1 - 1];
 
-
-	<div id="divVisitor" class="col-md-10">
-		<h3 id="visitorTitle">Visitors to New Zealand</h3>
-
-		<h4 id="v-month1Label"></h4>
-		<h4 id="v-month1Value"></h4>
-
-		<h4 id="v-month2Label"></h4>
-		<h4 id="v-month2Value"></h4>
-
-		<canvas id="visitorCanvas" width="600" height="400"></canvas>
-	</div>
-	<script>
-		var smonth1 = 3;
-		var smonth2 = 5;
-
-		//var sdataset = [381068, 380034, 343799, 311866, 209170, 230088, 237872, 221181, 245089, 260246, 333598, 494193];
-		var sdataset = [];
-		var months = [];
-		jQuery.getJSON('api/MonthlyVisitors').done(function (data) {
-			for (var i = 6; i < data.length; i++) {
-				sdataset.push(data[i]["Year5"]);
+				document.getElementById('v-month2Label').innerHTML = sData.labels[month2 - 1];
+				document.getElementById('v-month2Value').innerHTML = dataset[month2 - 1];
+				// get line chart canvas
+				var canvas = document.getElementById('visitorCanvas').getContext('2d');
+				// draw line chart
+				new Chart(canvas).Line(sData, options);
 			}
-			for (var i = 0; i < 6; i++) {
-				sdataset.push(data[i]["Year5"]);
-			}
-		});
-		sdataset = [381068, 380034, 343799, 311866, 209170, 230088, 237872, 221181, 245089, 260246, 333598, 494193];
-		// line chart data
-		var sData = {
-			labels: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
-			datasets: [
-				{
-					fillColor: "rgba(172,194,132,0.4)",
-					strokeColor: "#ACC26D",
-					pointColor: "#fff",
-					pointStrokeColor: "#9DB86D",
-					data: sdataset
+
+			var sdataset = [];
+			jQuery.getJSON('api/RadiationRates').done(function (data) {
+				for (var i = 0; i < data.length; i++) {
+					sdataset.push(data[i]["AverageRadiation"]);
 				}
-			]
+				drawSunburnGraph(sdataset);
+			});
+			function drawSunburnGraph(datasets) {
+				// line chart data
+				var sData = {
+					
+						labels: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
+						datasets: [
+							{
+								fillColor: "rgba(172,194,132,0.4)",
+								strokeColor: "#ACC26D",
+								pointColor: "#fff",
+								pointStrokeColor: "#9DB86D",
+								data: datasets
+							}
+						]
+				}
+				// Start commentary block 
+				var slower = Math.min(datasets[month1 - 1], datasets[month2 - 1]);
+				var shigher = Math.max(datasets[month1 - 1], datasets[month2 - 1]);
+
+				var spercentageDiff = (100 - (slower / shigher) * 100).toFixed(2);
+
+				if (spercentageDiff == 0.00) {
+					var sMessage = "There's no difference in sunburn liklihood between " + sData.labels[month1 - 1] + " and " + sData.labels[month2 - 1];
+				}
+				else if (slower.toString().match(sdataset[month1 - 1])) {
+					var sMessage = "You're " + spercentageDiff + "% less likely to get sunburnt in " + sData.labels[month1 - 1];
+				}
+				else {
+					var sMessage = "You're " + spercentageDiff + "% less likely to get sunburnt in " + sData.labels[month2 - 1];
+				}
+				document.getElementById('s-commentary').innerHTML = sMessage;
+				document.getElementById('s-month1Label').innerHTML = sData.labels[month1 - 1];
+				document.getElementById('s-month1Value').innerHTML = datasets[month1 - 1];
+
+				document.getElementById('s-month2Label').innerHTML = sData.labels[month2 - 1];
+				document.getElementById('s-month2Value').innerHTML = datasets[month2 - 1];
+				// get line chart canvas
+				var canvas = document.getElementById('sunburnCanvas').getContext('2d');
+				// draw line chart
+				new Chart(canvas).Line(sData, options);
+			}
+			var adataset = [];
+			jQuery.getJSON('api/OccupationRates').done(function (data) {
+				for (var i = 6; i < data.length; i++) {
+					adataset.push(data[i]["OccupationRate"]);
+				}
+				for (var i = 0; i < 6; i++) {
+					adataset.push(data[i]["OccupationRate"]);
+				}
+				drawOccupancyGraph(adataset);
+			});
+			function drawOccupancyGraph(adataset) {
+				
+
+				// line chart data
+				var aData = {
+						labels: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
+						datasets: [
+							{
+								fillColor: "rgba(172,194,132,0.4)",
+								strokeColor: "#ACC26D",
+								pointColor: "#fff",
+								pointStrokeColor: "#9DB86D",
+								data: adataset
+							}
+						]
+				}
+
+         // Finsh commentary block
+
+				var slower = Math.min(kdataset[month1 - 1], adataset[month2 - 1]);
+				var alower = Math.min(adataset[month1 - 1], adataset[month2 - 1]);
+				var ahigher = Math.max(adataset[month1 - 1], adataset[month2 - 1]);
+
+				var apercentageDiff = (100 - (alower / ahigher) * 100).toFixed(2);
+
+				if (apercentageDiff == 0.00) {
+					var aMessage = "There's no difference in accommodation occupancy between " + aData.labels[month1 - 1] + " and " + aData.labels[month2 - 1];
+				}
+				else if (slower.toString().match(sdataset[month1 - 1])) {
+					var aMessage = "Accomodation occupancy is " + apercentageDiff + "% lower in " + aData.labels[month1 - 1];
+				}
+				else {
+					var aMessage = "Accomodation occupancy is " + apercentageDiff + "% lower in " + aData.labels[month2 - 1];
+				}
+				document.getElementById('a-commentary').innerHTML = aMessage;
+         // Finsh commentary block
+				//document.getElementById('heading2').innerHTML = data[month1];
+				document.getElementById('a-month1Label').innerHTML = aData.labels[month1 - 1];
+				document.getElementById('a-month1Value').innerHTML = adataset[month1 - 1];
+
+				document.getElementById('a-month2Label').innerHTML = aData.labels[month2 - 1];
+				document.getElementById('a-month2Value').innerHTML = adataset[month2 - 1];
+				// get line chart canvas
+				var canvas2 = document.getElementById('accomCanvas').getContext('2d');
+				// draw line chart
+				new Chart(canvas2).Line(aData, options);
+			}
+			var kdataset = [];
+			jQuery.getJSON('api/KumaraPrices').done(function (data) {
+				for (var i = 6; i < data.length; i++) {
+					kdataset.push(data[i]["Price"]);
+				}
+				for (var i = 0; i < 6; i++) {
+					kdataset.push(data[i]["Price"]);
+				}
+				drawPriceGraph(kdataset);
+			});
+			function drawPriceGraph(kdataset) {
+
+				// line chart data
+				var kData = {
+						labels: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
+						datasets: [
+							{
+								fillColor: "rgba(172,194,132,0.4)",
+								strokeColor: "#ACC26D",
+								pointColor: "#fff",
+								pointStrokeColor: "#9DB86D",
+								data: kdataset
+							}
+						]
+				}
+
+				document.getElementById('k-month1Label').innerHTML = kData.labels[month1 - 1];
+				document.getElementById('k-month1Value').innerHTML = kdataset[month1 - 1];
+
+				document.getElementById('k-month2Label').innerHTML = kData.labels[month2 - 1];
+				document.getElementById('k-month2Value').innerHTML = kdataset[month2 - 1];
+				// Start commentary block 
+
+				var slower = Math.min(kdataset[month1 - 1], kdataset[month2 - 1]);
+				var shigher = Math.max(kdataset[month1 - 1], kdataset[month2 - 1]);
+
+				var spercentageDiff = (100 - (slower / shigher) * 100).toFixed(2);
+
+				var klower = Math.min(kdataset[month1 - 1], kdataset[month2 - 1]);
+				var khigher = Math.max(kdataset[month1 - 1], kdataset[month2 - 1]);
+
+				var kpercentageDiff = (100 - (klower / khigher) * 100).toFixed(2);
+
+				if (kpercentageDiff == 0.00) {
+					var kMessage = "There's no difference in kumara prices between " + kData.labels[month1 - 1] + " and " + kData.labels[month2 - 1];
+				}
+				else if (slower.toString().match(kdataset[month1 - 1])) {
+					var kMessage = "Kumara prices are " + kpercentageDiff + "% lower in " + kData.labels[month1 - 1];
+				}
+				else {
+					var kMessage = "Kumara prices are " + kpercentageDiff + "% lower in " + kData.labels[month2 - 1];
+				}
+				document.getElementById('k-commentary').innerHTML = kMessage;
+         // Finsh commentary block
+
+				// get line chart canvas
+				var canvas3 = document.getElementById('kumaraCanvas').getContext('2d');
+				// draw line chart
+				new Chart(canvas3).Line(kData, options);
+
+
+			}
 		}
 
-		var options = {
-			scaleShowLabels: false // to hide vertical lables
-		};
-		//document.getElementById('heading2').innerHTML = data[month1];
-		document.getElementById('v-month1Label').innerHTML = sData.labels[smonth1 - 1];
-		document.getElementById('v-month1Value').innerHTML = sdataset[smonth1 - 1];
-								
-		document.getElementById('v-month2Label').innerHTML = sData.labels[smonth2 - 1];
-		document.getElementById('v-month2Value').innerHTML = sdataset[smonth2 - 1];
-		// get line chart canvas
-		var canvas = document.getElementById('visitorCanvas').getContext('2d');
-		// draw line chart
-		new Chart(canvas).Line(sData, options);
-	</script>
-
-	<div class="col-md-2">
-
-	</div>
-	<div id="sunburn" class="col-md-10">
-		<h3 id="sunburnTitle">Liklihood to get sunburnt</h3>
-
-		<h4 id="s-month1Label"></h4>
-		<h4 id="s-month1Value"></h4>
-
-		<h4 id="s-month2Label"></h4>
-		<h4 id="s-month2Value"></h4>
-
-		<canvas id="sunburnCanvas" width="600" height="400"></canvas>
-	</div>
-	<script>
-		var smonth1 = 3;
-		var smonth2 = 5;
-		var sdataset = [];
-		//var sdataset = [22.55263158, 19.42105263, 15.62631579, 10.85263158, 7.410526316, 5.826315789, 6.5, 9.2, 13.01052632, 17.03157895, 20.67894737, 21.92105263];
-		jQuery.getJSON('api/RadiationRates').done(function (data) {
-			for (var i = 6; i < data.length; i++) {
-				sdataset.push(data[i]["AverageRadiation"]);
-			}
-			for (var i = 0; i < 6; i++) {
-				sdataset.push(data[i]["AverageRadiation"]);
-			}
-		});
-		sdataset = [22.55263158, 19.42105263, 15.62631579, 10.85263158, 7.410526316, 5.826315789, 6.5, 9.2, 13.01052632, 17.03157895, 20.67894737, 21.92105263];
-		// line chart data
-		var sData = {
-			labels: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
-			datasets: [
-				{
-					fillColor: "rgba(172,194,132,0.4)",
-					strokeColor: "#ACC26D",
-					pointColor: "#fff",
-					pointStrokeColor: "#9DB86D",
-					data: sdataset
-				}
-			]
-		}
-
-		var options = {
-			scaleShowLabels: false // to hide vertical lables
-		};
-		//document.getElementById('heading2').innerHTML = data[month1];
-		document.getElementById('s-month1Label').innerHTML = sData.labels[smonth1 - 1];
-		document.getElementById('s-month1Value').innerHTML = sdataset[smonth1 - 1];
-
-		document.getElementById('s-month2Label').innerHTML = sData.labels[smonth2 - 1];
-		document.getElementById('s-month2Value').innerHTML = sdataset[smonth2 - 1];
-		// get line chart canvas
-		var canvas = document.getElementById('sunburnCanvas').getContext('2d');
-		// draw line chart
-		new Chart(canvas).Line(sData, options);
-	</script>
-
-
-
-	<div class="col-md-2">
-
-	</div>
-	<div id="accom" class="col-md-10">
-		<h3 id="accomTitle">Accomodation occupancy rate</h3>
-
-		<h4 id="a-month1Label"></h4>
-		<h4 id="a-month1Value"></h4>
-
-		<h4 id="a-month2Label"></h4>
-		<h4 id="a-month2Value"></h4>
-
-		<canvas id="accomCanvas" width="600" height="400"></canvas>
-	</div>
-	<script>
-		var amonth1 = 3;
-		var amonth2 = 5;
-		
-		var adataset = [57.19, 57.01, 53.03, 46.39, 36.96, 32.86, 36.33, 35.18, 38.17, 40.9, 47, 49.23];
-		jQuery.getJSON('api/OccupationRates').done(function (data) {
-			for (var i = 6; i < data.length; i++) {
-				adataset.push(data[i]["OccupationRate"]);
-			}
-			for (var i = 0; i < 6; i++) {
-				adataset.push(data[i]["OccupationRate"]);
-			}
-		});
-		// line chart data
-		var aData = {
-			labels: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
-			datasets: [
-				{
-					fillColor: "rgba(172,194,132,0.4)",
-					strokeColor: "#ACC26D",
-					pointColor: "#fff",
-					pointStrokeColor: "#9DB86D",
-					data: adataset
-				}
-			]
-		}
-
-		var options = {
-			scaleShowLabels: false // to hide vertical lables
-		};
-		//document.getElementById('heading2').innerHTML = data[month1];
-		document.getElementById('a-month1Label').innerHTML = aData.labels[smonth1 - 1];
-		document.getElementById('a-month1Value').innerHTML = adataset[smonth1 - 1];
-
-		document.getElementById('a-month2Label').innerHTML = aData.labels[smonth2 - 1];
-		document.getElementById('a-month2Value').innerHTML = adataset[smonth2 - 1];
-		// get line chart canvas
-		var canvas2 = document.getElementById('accomCanvas').getContext('2d');
-		// draw line chart
-		new Chart(canvas2).Line(aData, options);
-	</script>
-
-
-
-	<div class="col-md-2">
-
-	</div>
-	<div id="kumara" class="col-md-10">
-		<h3 id="accomTitle">Kumara prices NZ</h3>
-
-		<h4 id="k-month1Label"></h4>
-		<h4 id="k-month1Value"></h4>
-
-		<h4 id="k-month2Label"></h4>
-		<h4 id="k-month2Value"></h4>
-
-		<canvas id="kumaraCanvas" width="600" height="400"></canvas>
-	</div>
-	<script>
-		var kmonth1 = 3;
-		var kmonth2 = 5;
-
-		var kdataset = [5.8, 5.9, 4.9, 4.7, 4.5, 4.5, 4.6, 4.6, 4.7, 4.8, 5.0, 5.4];
-
-		// line chart data
-		var kData = {
-			labels: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
-			datasets: [
-				{
-					fillColor: "rgba(172,194,132,0.4)",
-					strokeColor: "#ACC26D",
-					pointColor: "#fff",
-					pointStrokeColor: "#9DB86D",
-					data: kdataset
-				}
-			]
-		}
-
-		var options = {
-			scaleShowLabels: false // to hide vertical lables
-		};
-		//document.getElementById('heading2').innerHTML = data[month1];
-		document.getElementById('k-month1Label').innerHTML = kData.labels[kmonth1 - 1];
-		document.getElementById('k-month1Value').innerHTML = kdataset[kmonth1 - 1];
-
-		document.getElementById('k-month2Label').innerHTML = kData.labels[kmonth2 - 1];
-		document.getElementById('k-month2Value').innerHTML = kdataset[kmonth2 - 1];
-		// get line chart canvas
-		var canvas3 = document.getElementById('kumaraCanvas').getContext('2d');
-		// draw line chart
-		new Chart(canvas3).Line(kData, options);
 	</script>
 </body>
 </html>
