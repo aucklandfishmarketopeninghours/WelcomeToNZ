@@ -94,6 +94,7 @@
     <Content Include="Content\BRAND.png" />
     <Content Include="Content\down-arrow.png" />
     <Content Include="Content\styles.css" />
+    <Content Include="hardCoded.html" />
     <Content Include="index.html" />
     <Content Include="Global.asax" />
     <None Include="Scripts\jquery-2.2.0.intellisense.js" />
